@@ -33,7 +33,7 @@ public class WebSecurityConfig {
                 )
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/show-tasks", true)
                         .permitAll()
                 )
                 .logout(logout -> logout.permitAll());
