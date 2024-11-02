@@ -14,12 +14,12 @@
     <div sec:authorize="isAuthenticated()" class="tasks-section">
         <h2>Your Tasks</h2>
 
-        <!-- Кнопка "Add Task" -->
-        <a href="/create-task" class="btn">Create Task</a>
+
+<!--        <a href="/create-task" class="btn">Create Task</a>-->
 
 
 
-        <div th:if="${tasks != null and tasks.size() == 0}">
+        <div th:if="${tasks == null}">
             <p>You have no tasks yet. Would you like to <a href="/create-task">create your first task</a>?</p>
         </div>
 

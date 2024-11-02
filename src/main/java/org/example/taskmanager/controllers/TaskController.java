@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -22,22 +23,23 @@ public class TaskController {
     @GetMapping("/show-tasks")
     public String home(@AuthenticationPrincipal UserDetails userDetails, User user, Model model) {
         if (userDetails != null) {
-            List<Task> tasks = user.getTasksByUserName(userDetails.getUsername()); // set all params
-            model.addAttribute("tasks", tasks);
-
+//            List<Task> tasks = user.getTasksByUserId(userDetails.getUsername()); // set all params
+//            model.addAttribute("tasks", tasks);
         }
         return "home-page";
     }
 
     @GetMapping("/create-task")
-    public String createTask(Task task, Model model) {
-        taskService.createTask(task);
+    public String createTask(Model model) {
+        model.addAttribute("task", new Task());
         return "/create-task";
     }
 
     @PostMapping("/create-task")
-    public String createTask(Task task) {
-        taskService.createTask(task);
+    public String createTask(@AuthenticationPrincipal UserDetails userDetails,
+                             @ModelAttribute Task task, Model model) {
+        User user = (User)userDetails;
+        taskService.createTask(task, user.getId());
         return "redirect:/show-tasks";
     }
 }
