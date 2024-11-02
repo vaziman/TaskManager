@@ -1,6 +1,7 @@
 package org.example.taskmanager.configurations;
 
 import lombok.RequiredArgsConstructor;
+import org.example.taskmanager.models.enums.UserRole;
 import org.example.taskmanager.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,7 @@ public class WebSecurityConfig {
         http
                 .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeRequests(auth -> auth
+                        .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.name())
                         .requestMatchers("/", "/registration", "/static/**").permitAll()
                         .anyRequest().authenticated()
                 )
