@@ -6,7 +6,7 @@
         </a>
 
         <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-            <!-- Проверка на роль "ROLE_ADMIN" -->
+            <!-- checking for "ROLE_ADMIN" -->
             <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                 <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/admin">Admin Panel</a>
             </div>
@@ -24,37 +24,10 @@
                 <a class="py-2 link-body-emphasis text-decoration-none" href="/login">Log in</a>
             </div>
 
-            <!-- Кнопка "Admin Panel" только для пользователей с ролью ROLE_ADMIN -->
+            <!-- button  "Admin Panel" only for ROLE_ADMIN -->
             <a href="/admin" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-secondary">Admin Panel</a>
 
-<!--            &lt;!&ndash; Кнопка "Log in" для анонимных пользователей &ndash;&gt;-->
-<!--            <a href="/login" sec:authorize="isAnonymous()" class="btn btn-primary">Log in</a>-->
-
-<!--            &lt;!&ndash; Кнопка "Log out" для аутентифицированных пользователей &ndash;&gt;-->
-<!--            <a href="/logout" sec:authorize="isAuthenticated()" class="btn btn-secondary">Log out</a>-->
-<!--            -->
         </nav>
     </div>
 </div>
 
-<!--<div th:fragment="header">-->
-<!--    <div style="display: flex; flex-direction: column; padding-bottom: 2px; margin-bottom: 2px; border-bottom: 1px solid #ccc; padding-left: 20px; padding-right: 20px;">-->
-<!--        <a href="/" style="display: flex; align-items: center; text-decoration: none; color: #333;">-->
-<!--            <img src="/public/logo.png" width="60" height="32" alt="Icon" style="margin-right: 10px;">-->
-<!--            <span style="font-size: 24px; font-weight: bold;">Your task manager</span>-->
-<!--        </a>-->
-
-<!--        <nav style="margin-top: 2px; display: flex; flex-direction: row; justify-content: flex-end;">-->
-<!--            &lt;!&ndash; Проверка на роль "ROLE_ADMIN" &ndash;&gt;-->
-<!--            <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">-->
-<!--                <a href="/admin" style="margin-right: 20px; text-decoration: none; color: #007bff;">Admin Panel</a>-->
-<!--            </div>-->
-
-<!--            <a href="/" style="margin-right: 20px; text-decoration: none; color: #007bff;">Tasks</a>-->
-<!--            <a href="/about" style="margin-right: 20px; text-decoration: none; color: #007bff;">About</a>-->
-<!--            <a href="#" style="margin-right: 20px; text-decoration: none; color: #007bff;">Support</a>-->
-
-<!--            <a href="/login" style="text-decoration: none; color: #007bff;">Log in</a>-->
-<!--        </nav>-->
-<!--    </div>-->
-<!--</div>-->
