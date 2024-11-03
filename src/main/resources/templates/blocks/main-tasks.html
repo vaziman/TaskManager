@@ -1,0 +1,114 @@
+<!-- Ensure user is authenticated before displaying tasks -->
+<div sec:authorize="isAuthenticated()" class="tasks-section" xmlns:sec="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <h2>Your Tasks</h2>
+
+    <!-- Message if no tasks available -->
+    <div th:if="${tasks == null} or ${tasks.size() == 0}">
+        <p>You have no tasks yet. Would you like to <a href="/create-task">create your first task</a>?</p>
+    </div>
+
+    <!-- Display tasks if available -->
+    <div th:if="${tasks != null and tasks.size() > 0}">
+        <div class="task-container">
+            <div th:each="task : ${tasks}" class="task-card">
+                <!-- Task Title -->
+                <h4 th:text="${task.name}" class="task-title"></h4>
+
+                <!-- Task Description with truncation to 50 characters -->
+                <p th:text="${#strings.abbreviate(task.description, 50)}" class="task-desc"></p>
+
+                <!-- Task Priority with color-coded label -->
+                <span th:text="${task.priority == 1 ? 'Low' : task.priority == 2 ? 'Medium' : 'High'}"
+                      th:classappend="${task.priority == 1 ? 'priority-low' : task.priority == 2 ? 'priority-medium' : 'priority-high'}"
+                      class="task-priority"></span>
+
+                <!-- Edit and Delete Buttons -->
+                <div class="task-actions">
+                    <a href="/edit-task/${task.id}" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a href="/delete-task/${task.id}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button to create a new task -->
+        <a href="/create-task" class="btn btn-primary mt-3">Create New Task</a>
+    </div>
+
+    <!-- Проверка, если пользователь не залогинен -->
+    <div sec:authorize="isAnonymous()" class="hero-section" style="background-image: url('/main-logo.jpg'); background-size: cover; background-position: center; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <img src="/main-logo.jpg" alt="Your Experience">
+        <h1>Your Best Experience</h1>
+        <a href="/login" class="btn btn-primary mt-3">Log in</a>
+    </div>
+</div>
+
+
+<!-- CSS Styles -->
+<style>
+    .task-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .task-card {
+        position: relative;
+        padding: 1rem;
+        width: 250px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .task-title {
+        margin-bottom: 0.5rem;
+    }
+
+    .task-desc {
+        margin-bottom: 1rem;
+        color: #555;
+    }
+
+    .task-priority {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.9rem;
+        font-weight: bold;
+        border-radius: 4px;
+    }
+
+    /* Priority colors */
+    .priority-low {
+        color: #2d6a4f;
+        border: 1px solid #2d6a4f;
+    }
+
+    .priority-medium {
+        color: #ffa500;
+        border: 1px solid #ffa500;
+    }
+
+    .priority-high {
+        color: #d90429;
+        border: 1px solid #d90429;
+    }
+
+    .task-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+    }
+
+    .btn {
+        padding: 0.25rem 0.75rem;
+        font-size: 0.8rem;
+    }
+</style>
+
