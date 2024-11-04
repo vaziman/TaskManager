@@ -57,4 +57,18 @@ public class TaskController {
         taskService.deleteTask(id);
         return "redirect:/show-tasks";
     }
+
+    @GetMapping("/edit-task/{id}")
+    public String editTask(@PathVariable Long id, Model model) {
+        Task task = taskService.findTaskById(id);
+        model.addAttribute("task", task);
+        return "/edit-task-page";
+    }
+
+    @PostMapping("/update-task")
+    public String updateTask(@ModelAttribute Task task) {
+//        taskService.editTask(task);
+        return "redirect:/show-tasks";
+    }
+
 }

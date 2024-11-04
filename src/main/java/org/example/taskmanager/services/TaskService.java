@@ -39,4 +39,14 @@ public class TaskService {
     public List<Task> getTasksByUserId(Long id) {
         return taskRepository.findByUserId(id);
     }
+
+    public void editTask(Task task) {
+        taskRepository.save(task);
+    }
+
+    public Task findTaskById(Long id) {
+        return taskRepository.findById(id).orElse(null);
+    }
+
+
 }
