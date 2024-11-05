@@ -65,6 +65,9 @@
     <form th:action="@{/update-task}" method="post" th:object="${task}">
         <input type="hidden" th:field="*{id}">
         <input type="hidden" th:field="*{user.id}">
+        <input type="hidden" th:field="*{user.email}">
+        <input type="hidden" th:field="*{user.username}">
+        <input type="hidden" th:field="*{user.active}">
         <!-- Заголовок -->
         <div class="form-group">
             <label for="title">Title:</label>

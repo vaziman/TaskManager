@@ -49,4 +49,7 @@ public class TaskService {
     }
 
 
+    public void save(Task task) {
+        taskRepository.save(task);
+    }
 }

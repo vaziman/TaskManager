@@ -8,6 +8,7 @@ import org.example.taskmanager.models.User;
 import org.example.taskmanager.repositories.UserRepository;
 import org.example.taskmanager.services.TaskService;
 import org.example.taskmanager.services.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -32,7 +34,6 @@ public class TaskController {
         if (userDetails != null) {
             User user = userService.findUserByUsername(userDetails.getUsername());
             List<Task> tasks = taskService.getTasksByUserId(user.getId()); // set all params
-            log.info("Tasks size: {}", tasks.size());
             model.addAttribute("tasks", tasks);
         }
         return "home-page";
@@ -67,7 +68,13 @@ public class TaskController {
 
     @PostMapping("/update-task")
     public String updateTask(@ModelAttribute Task task) {
-//        taskService.editTask(task);
+        Long taskId = task.getId();
+        Task taskToEdit = taskService.findTaskById(taskId);
+        taskToEdit.setName(task.getName());
+        taskToEdit.setDescription(task.getDescription());
+        taskToEdit.setPriority(task.getPriority());
+//        BeanUtils.copyProperties(task, taskToEdit, "id");
+        taskService.editTask(taskToEdit);
         return "redirect:/show-tasks";
     }
 

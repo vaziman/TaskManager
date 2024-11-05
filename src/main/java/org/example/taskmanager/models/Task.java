@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity(name = "tasks")
 @Data
-@Table(name = "task")
+@Table(name = "tasks")
 public class Task {
     private LocalDateTime dateOfCreated;
 
