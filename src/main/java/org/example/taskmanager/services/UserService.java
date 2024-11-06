@@ -3,7 +3,7 @@ package org.example.taskmanager.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.taskmanager.models.User;
+import org.example.taskmanager.models.entities.User;
 import org.example.taskmanager.models.enums.UserRole;
 import org.example.taskmanager.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;

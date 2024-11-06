@@ -3,7 +3,8 @@ package org.example.taskmanager.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.taskmanager.models.Task;
+import org.example.taskmanager.models.TaskUpdateDTO;
+import org.example.taskmanager.models.entities.Task;
 import org.example.taskmanager.repositories.TaskRepository;
 import org.example.taskmanager.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,9 @@ public class TaskService {
 
     public void save(Task task) {
         taskRepository.save(task);
+    }
+
+    public List<Task> searchTasksByName(String name) {
+        return taskRepository.findByName(name);
     }
 }

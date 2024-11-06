@@ -79,6 +79,16 @@
     <div sec:authorize="isAuthenticated()" class="tasks-section">
         <h2>Your Tasks</h2>
 
+        <!-- Search Form -->
+        <form action="/search-tasks" method="get" class="mb-3">
+            <div class="input-group">
+                <input type="text" th:value="${searchQuery}" name="searchQuery" placeholder="Search by task name">
+
+                <button type="submit" class="btn btn-outline-primary">Search</button>
+                <a href="/search-tasks" class="btn btn-secondary">Reset Search</a>
+            </div>
+        </form>
+
         <div th:if="${tasks == null} or ${tasks.size() == 0}">
             <p>You have no tasks yet. Would you like to <a href="/create-task">create your first task</a>?</p>
         </div>
