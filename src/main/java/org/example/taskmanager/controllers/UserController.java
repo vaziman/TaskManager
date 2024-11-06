@@ -1,7 +1,7 @@
 package org.example.taskmanager.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.taskmanager.models.User;
+import org.example.taskmanager.models.entities.User;
 import org.example.taskmanager.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

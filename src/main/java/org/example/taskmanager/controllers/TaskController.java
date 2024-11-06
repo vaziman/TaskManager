@@ -3,8 +3,9 @@ package org.example.taskmanager.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.taskmanager.models.Task;
-import org.example.taskmanager.models.User;
+import org.example.taskmanager.models.TaskUpdateDTO;
+import org.example.taskmanager.models.entities.Task;
+import org.example.taskmanager.models.entities.User;
 import org.example.taskmanager.repositories.UserRepository;
 import org.example.taskmanager.services.TaskService;
 import org.example.taskmanager.services.UserService;
@@ -12,10 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,7 +30,6 @@ public class TaskController {
         if (userDetails != null) {
             User user = userService.findUserByUsername(userDetails.getUsername());
             List<Task> tasks = taskService.getTasksByUserId(user.getId()); // set all params
-            log.info("Tasks size: {}", tasks.size());
             model.addAttribute("tasks", tasks);
         }
         return "home-page";
@@ -66,9 +63,26 @@ public class TaskController {
     }
 
     @PostMapping("/update-task")
-    public String updateTask(@ModelAttribute Task task) {
-//        taskService.editTask(task);
+    public String updateTask(@ModelAttribute TaskUpdateDTO task) {
+        Long taskId = task.getId();
+        Task taskToEdit = taskService.findTaskById(taskId);
+        taskToEdit.setName(task.getName());
+        taskToEdit.setDescription(task.getDescription());
+        taskToEdit.setPriority(task.getPriority());
+        taskService.editTask(taskToEdit);
         return "redirect:/show-tasks";
+    }
+
+    @GetMapping("/search-tasks")
+    public String searchTasks(@RequestParam(value = "searchQuery", required = false) String name, Model model) {
+        List<Task> tasks = taskService.searchTasksByName(name);
+        if(name == null || name.isEmpty()) {
+            model.addAttribute("tasks", taskService.getAllTasksForUser());
+        }else {
+            model.addAttribute("tasks", tasks);
+        }
+        model.addAttribute("searchQuery", name);
+        return "home-page";
     }
 
 }

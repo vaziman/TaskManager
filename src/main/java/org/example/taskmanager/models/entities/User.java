@@ -1,4 +1,4 @@
-package org.example.taskmanager.models;
+package org.example.taskmanager.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -30,7 +30,7 @@ public class User implements UserDetails {
 
 
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles = new HashSet<>();

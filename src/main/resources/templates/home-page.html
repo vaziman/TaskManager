@@ -70,6 +70,7 @@
             font-size: 0.8rem;
         }
     </style>
+<!--    <link rel="stylesheet" href="/templates/blocks/styles-for-main-page.css">-->
 </head>
 <body>
 <header th:insert="~{blocks/header.html :: header}"></header>
@@ -77,6 +78,16 @@
 <main>
     <div sec:authorize="isAuthenticated()" class="tasks-section">
         <h2>Your Tasks</h2>
+
+        <!-- Search Form -->
+        <form action="/search-tasks" method="get" class="mb-3">
+            <div class="input-group">
+                <input type="text" th:value="${searchQuery}" name="searchQuery" placeholder="Search by task name">
+
+                <button type="submit" class="btn btn-outline-primary">Search</button>
+                <a href="/search-tasks" class="btn btn-secondary">Reset Search</a>
+            </div>
+        </form>
 
         <div th:if="${tasks == null} or ${tasks.size() == 0}">
             <p>You have no tasks yet. Would you like to <a href="/create-task">create your first task</a>?</p>
@@ -98,8 +109,6 @@
 
                     <!-- Edit and Delete Buttons -->
                     <div class="task-actions">
-<!--                        <a href="/edit-task/${id}" class="btn btn-sm btn-outline-primary">Edit</a>-->
-<!--                        <a href="/edit-task/${task.id}" class="btn btn-sm btn-outline-primary">Edit</a>-->
                         <a th:href="@{/edit-task/{id}(id=${task.id})}" class="btn btn-sm btn-outline-primary">Edit</a>
 
                         <form th:action="@{/delete-task/{id}(id=${task.id})}" method="post" style="display:inline;">
