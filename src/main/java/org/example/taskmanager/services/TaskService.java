@@ -3,7 +3,6 @@ package org.example.taskmanager.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.taskmanager.models.TaskUpdateDTO;
 import org.example.taskmanager.models.entities.Task;
 import org.example.taskmanager.repositories.TaskRepository;
 import org.example.taskmanager.repositories.UserRepository;
@@ -16,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TaskService {
     private final TaskRepository taskRepository;
-    private final UserService userService;
     private final UserRepository userRepository;
 
     public List<Task> findByName(String name) {
