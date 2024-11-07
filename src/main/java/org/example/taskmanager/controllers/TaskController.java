@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.taskmanager.models.TaskUpdateDTO;
 import org.example.taskmanager.models.entities.Task;
 import org.example.taskmanager.models.entities.User;
-import org.example.taskmanager.repositories.UserRepository;
 import org.example.taskmanager.services.TaskService;
 import org.example.taskmanager.services.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,7 +21,6 @@ import java.util.List;
 @Slf4j
 public class TaskController {
     private final TaskService taskService;
-    private final UserRepository userRepository;
     private final UserService userService;
 
     @GetMapping("/show-tasks")
@@ -43,7 +41,7 @@ public class TaskController {
 
     @PostMapping("/create-task")
     public String createTask(@AuthenticationPrincipal UserDetails userDetails,
-                             @ModelAttribute Task task, Model model) {
+                             @ModelAttribute Task task) {
         User user = (User) userDetails;
         taskService.createTask(task, user.getId());
         return "redirect:/show-tasks";

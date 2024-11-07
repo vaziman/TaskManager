@@ -17,17 +17,16 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public boolean createUser(User user) {
-        String email = user.getEmail();
         if (userRepository.findByEmail(user.getEmail()) != null) return false;
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(UserRole.ADMIN);
-        log.info("Saving new user with email: {}", email);
+        user.getRoles().add(UserRole.USER);
+
         userRepository.save(user);
         return true;
     }
 
-    public User findByUsername(String username) {
+    public User findByEmail(String username) {
         return userRepository.findByEmail(username);
     }
 

@@ -2,6 +2,7 @@ package org.example.taskmanager.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Setter;
 import org.example.taskmanager.models.enums.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +20,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "username")
+    @Setter
+    @Column(name = "username", unique = true)
     private String username;
     @Column(name = "password")
     private String password;
@@ -79,7 +81,4 @@ public class User implements UserDetails {
         return null;
     }
 
-    public void setUserName(String username) {
-        this.username = username;
-    }
 }
