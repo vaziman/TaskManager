@@ -19,6 +19,10 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/admin-panel")
+    public String admin(Model model) {
+        return "admin-panel";
+    }
 
 
     @GetMapping("/registration")

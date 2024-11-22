@@ -96,7 +96,7 @@ public class TestUserService {
 
     when(userRepository.findByUsername(user.getUsername())).thenReturn(user);
 
-    User result = userService.findUserByUsername(user.getUsername());
+    User result = userService.findUserByUserName(user.getUsername());
 
     assertEquals(user, result);
   }

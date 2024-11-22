@@ -2,11 +2,17 @@ package org.example.taskmanager.models.enums;
 
 import org.springframework.security.core.GrantedAuthority;
 
+
 public enum UserRole implements GrantedAuthority {
-    USER, ADMIN;
+
+    USER,
+    ADMIN;
+
 
     @Override
     public String getAuthority() {
-        return name();
+
+       return "ROLE_" + name();
     }
+
 }

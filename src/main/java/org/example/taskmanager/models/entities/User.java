@@ -7,6 +7,7 @@ import org.example.taskmanager.models.enums.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.management.relation.Role;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -54,7 +55,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return roles;
     }
 
     @Override

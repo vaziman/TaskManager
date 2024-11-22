@@ -23,10 +23,11 @@ public class TaskController {
     private final TaskService taskService;
     private final UserService userService;
 
+
     @GetMapping("/show-tasks")
     public String home(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         if (userDetails != null) {
-            User user = userService.findUserByUsername(userDetails.getUsername());
+            User user = userService.findUserByUserName(userDetails.getUsername());
             List<Task> tasks = taskService.getTasksByUserId(user.getId()); // set all params
             model.addAttribute("tasks", tasks);
         }

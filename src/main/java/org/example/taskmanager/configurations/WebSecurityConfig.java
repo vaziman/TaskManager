@@ -1,7 +1,6 @@
 package org.example.taskmanager.configurations;
 
 import lombok.RequiredArgsConstructor;
-import org.example.taskmanager.models.enums.UserRole;
 import org.example.taskmanager.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +25,11 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeRequests(auth -> auth
-                        .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.name())
+                        .requestMatchers("/admin/**", "/admin-panel").hasAuthority("ROLE_ADMIN")
+//                        UserRole.ADMIN.name()
                         .requestMatchers("/", "/registration", "/static/**").permitAll()
                         .anyRequest().authenticated()
                 )
