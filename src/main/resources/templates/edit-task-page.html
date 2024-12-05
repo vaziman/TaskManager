@@ -61,13 +61,10 @@
 <body>
 
 <div class="form-container">
-    <h2>Edit Note</h2>
+    <h2>Edit Task</h2>
     <form th:action="@{/update-task}" method="post" th:object="${task}">
         <input type="hidden" th:field="*{id}">
-        <input type="hidden" th:field="*{user.id}">
-        <input type="hidden" th:field="*{user.email}">
-        <input type="hidden" th:field="*{user.username}">
-        <input type="hidden" th:field="*{user.active}">
+
         <!-- Заголовок -->
         <div class="form-group">
             <label for="title">Title:</label>
@@ -90,8 +87,21 @@
             </select>
         </div>
 
+        <!-- Выпадающее меню для выбора пользователя -->
+        <div class="form-group">
+            <label for="responsible">Assign Responsible:</label>
+            <select name="userId" id="responsible" class="form-control">
+                <option value="" disabled selected>Select a user</option>
+                <option th:each="user : ${users}"
+                        th:value="${user.id}"
+                        th:text="${user.username}"
+                        th:selected="${task.user != null and user.id == task.user.id}">
+                </option>
+            </select>
+        </div>
+
         <button type="submit">Save</button>
-        </form>
+    </form>
 </div>
 
 </body>

@@ -9,6 +9,8 @@ import org.example.taskmanager.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -38,7 +40,7 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public Object getAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 }

@@ -1,0 +1,2 @@
+ALTER TABLE tasks
+ADD COLUMN assigned_to VARCHAR(255);

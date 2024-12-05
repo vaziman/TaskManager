@@ -3,6 +3,7 @@ package org.example.taskmanager.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.taskmanager.kafka.producer.TaskAssignedProducer;
 import org.example.taskmanager.models.TaskUpdateDTO;
 import org.example.taskmanager.models.entities.Task;
 import org.example.taskmanager.models.entities.User;
@@ -22,6 +23,7 @@ import java.util.List;
 public class TaskController {
     private final TaskService taskService;
     private final UserService userService;
+    private final TaskAssignedProducer taskAssignedProducer;
 
 
     @GetMapping("/show-tasks")
@@ -45,6 +47,8 @@ public class TaskController {
                              @ModelAttribute Task task) {
         User user = (User) userDetails;
         taskService.createTask(task, user.getId());
+        String messageForKafka = String.format("User Created Task");
+        taskAssignedProducer.sendTaskAssignedMessage("task-assigned-topic", user.getUsername(), messageForKafka);
         return "redirect:/show-tasks";
     }
 
@@ -57,6 +61,8 @@ public class TaskController {
     @GetMapping("/edit-task/{id}")
     public String editTask(@PathVariable Long id, Model model) {
         Task task = taskService.findTaskById(id);
+        List<User>  users = userService.getAllUsers();
+        model.addAttribute("users", users);
         model.addAttribute("task", task);
         return "/edit-task-page";
     }

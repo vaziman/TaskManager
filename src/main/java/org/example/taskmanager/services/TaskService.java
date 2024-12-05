@@ -4,6 +4,7 @@ package org.example.taskmanager.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.taskmanager.models.entities.Task;
+import org.example.taskmanager.models.entities.User;
 import org.example.taskmanager.repositories.TaskRepository;
 import org.example.taskmanager.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,14 @@ public class TaskService {
 
     public List<Task> searchTasksByName(String name) {
         return taskRepository.findByName(name);
+    }
+
+    public void assignTask(Long taskId, Long userId) {
+        Task task = taskRepository.findById(taskId).orElse(null);
+        User user = userRepository.findById(userId).orElse(null);
+        if (task != null && user != null) {
+            task.setUser(user);
+            taskRepository.save(task);
+        }
     }
 }
