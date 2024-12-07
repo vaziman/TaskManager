@@ -41,6 +41,9 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private List<Task> tasks = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "assignedUser", fetch = FetchType.LAZY)
+//    private List<Task> assignedTasks = new ArrayList<>();
+
 
     @PrePersist
     private void init() {

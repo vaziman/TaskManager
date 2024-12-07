@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.taskmanager.models.entities.User;
 import org.example.taskmanager.models.enums.UserRole;
 import org.example.taskmanager.repositories.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class UserService {
         if (userRepository.findByEmail(user.getEmail()) != null) return false;
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(UserRole.USER);
+        user.getRoles().add(UserRole.ADMIN);
 
         userRepository.save(user);
         return true;

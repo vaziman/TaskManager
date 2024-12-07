@@ -74,7 +74,12 @@ public class TaskController {
         taskToEdit.setName(task.getName());
         taskToEdit.setDescription(task.getDescription());
         taskToEdit.setPriority(task.getPriority());
-        taskService.editTask(taskToEdit);
+
+        if (task.getAssignedUser() != null) {
+            User user = userService.findUserByUserName(task.getAssignedUser());
+            taskToEdit.setAssignedUser(user.getUsername());
+        }
+        taskService.saveTask(taskToEdit);
         return "redirect:/show-tasks";
     }
 

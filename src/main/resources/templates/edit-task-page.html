@@ -90,16 +90,20 @@
         <!-- Выпадающее меню для выбора пользователя -->
         <div class="form-group">
             <label for="responsible">Assign Responsible:</label>
-            <select name="userId" id="responsible" class="form-control">
-                <option value="" disabled selected>Select a user</option>
+            <select name="assignedUser" id="responsible" class="form-control">
+                <!-- Опция по умолчанию, которая не выбрана, если нет назначенного пользователя -->
+<!--                <option value="" disabled selected>Select a user</option>-->
+                <option value="" disabled th:selected="${task.user == null}">Select a user</option>
+
+
+                <!-- Цикл по пользователям -->
                 <option th:each="user : ${users}"
-                        th:value="${user.id}"
+                        th:value="${user.username}"
                         th:text="${user.username}"
-                        th:selected="${task.user != null and user.id == task.user.id}">
+                        th:selected="${task.user != null and user.username == task.user.username}">
                 </option>
             </select>
         </div>
-
         <button type="submit">Save</button>
     </form>
 </div>

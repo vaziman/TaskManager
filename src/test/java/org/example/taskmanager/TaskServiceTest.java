@@ -63,7 +63,7 @@ public class TaskServiceTest {
         existingTask.setDescription("Description");
         existingTask.setPriority(1);
 
-        taskService.editTask(existingTask);
+        taskService.saveTask(existingTask);
 
         verify(taskRepository).save(existingTask);
 

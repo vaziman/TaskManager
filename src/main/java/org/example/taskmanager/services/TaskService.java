@@ -40,7 +40,7 @@ public class TaskService {
         return taskRepository.findByUserId(id);
     }
 
-    public void editTask(Task task) {
+    public void saveTask(Task task) {
         taskRepository.save(task);
     }
 
@@ -48,10 +48,6 @@ public class TaskService {
         return taskRepository.findById(id).orElse(null);
     }
 
-
-    public void save(Task task) {
-        taskRepository.save(task);
-    }
 
     public List<Task> searchTasksByName(String name) {
         return taskRepository.findByName(name);

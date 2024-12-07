@@ -10,4 +10,7 @@ public class TaskUpdateDTO {
     private String name;
     private String description;
     private int priority;
+    private String assignedUser;
+
+
 }

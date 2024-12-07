@@ -28,12 +28,16 @@ public class Task {
     private LocalDateTime createdDate;
     @Column(name = "status")
     private String status;
-    @Column(name = "assigned_to")
-    private String assignedTo;
+    @Column(name = "assigned_user")
+    private String assignedUser;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     @JoinColumn
     private User user;
+
+//    @ManyToOne
+//    @JoinColumn(name = "assigned_user", referencedColumnName = "username")
+//    private User username;
 
     @PrePersist
     private void init() {
